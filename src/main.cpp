@@ -25,6 +25,7 @@ Adafruit_NeoPixel ledStrip = Adafruit_NeoPixel(PIXEL_COUNT, PIXEL_PIN, NEO_GRB +
 const uint32_t COLOR_RED = ledStrip.Color(255, 0, 0);
 const uint32_t COLOR_GREEN = ledStrip.Color(0, 255, 0);
 const uint32_t COLOR_BLUE = ledStrip.Color(0, 0, 255);
+const uint32_t COLOR_NONE = ledStrip.Color(0, 0, 0);
 
 // display
 #include <Wire.h>
@@ -158,27 +159,36 @@ void set_single_temp_display(const float t, const int led_idx_offset)
     {
         // too cold
         ledStrip.setPixelColor(led_idx_offset+0, COLOR_BLUE);
+        ledStrip.setPixelColor(led_idx_offset+1, COLOR_NONE);
+        ledStrip.setPixelColor(led_idx_offset+2, COLOR_NONE);
+
     }
     else if(t < 63)
     {
         // slightly too cold
         ledStrip.setPixelColor(led_idx_offset+0, COLOR_BLUE);
         ledStrip.setPixelColor(led_idx_offset+1, COLOR_GREEN);
+        ledStrip.setPixelColor(led_idx_offset+2, COLOR_NONE);
     }
     else if(t < 67)
     {
         // optimal
+        ledStrip.setPixelColor(led_idx_offset+0, COLOR_NONE);
         ledStrip.setPixelColor(led_idx_offset+1, COLOR_GREEN);
+        ledStrip.setPixelColor(led_idx_offset+2, COLOR_NONE);
     }
     else if(t < 70)
     {
         // slightly too hot
+        ledStrip.setPixelColor(led_idx_offset+0, COLOR_NONE);
         ledStrip.setPixelColor(led_idx_offset+1, COLOR_GREEN);
         ledStrip.setPixelColor(led_idx_offset+2, COLOR_RED);
     }
     else
     {
         // too hot
+        ledStrip.setPixelColor(led_idx_offset+0, COLOR_NONE);
+        ledStrip.setPixelColor(led_idx_offset+1, COLOR_NONE);
         ledStrip.setPixelColor(led_idx_offset+2, COLOR_RED);
     }
 
